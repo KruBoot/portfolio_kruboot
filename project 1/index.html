@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แอปพลิเคชัน To-Do List ของฉัน</title>
+    <style>
+        /* ส่วนที่ 1: CSS ตกแต่งความสวยงาม */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 75%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #28a745;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>รายการสิ่งที่ต้องทำ</h2>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="พิมพ์งานที่ต้องทำตรงนี้...">
+            <button onclick="addTask()">เพิ่ม</button>
+        </div>
+        <ul id="taskList">
+            </ul>
+    </div>
+
+    <script>
+        // ฟังก์ชันสำหรับเพิ่มรายการใหม่
+        function addTask() {
+            // ดึงข้อความจากช่องพิมพ์
+            let input = document.getElementById("taskInput");
+            let taskText = input.value;
+
+            // ตรวจสอบว่าผู้ใช้พิมพ์ข้อความหรือไม่
+            if (taskText === "") {
+                alert("กรุณาพิมพ์รายการสิ่งที่ต้องทำ!");
+                return; // หยุดการทำงานถ้าไม่มีข้อความ
+            }
+
+            // สร้างส่วนประกอบของรายการใหม่ (<li>)
+            let ul = document.getElementById("taskList");
+            let li = document.createElement("li");
+
+            // ใส่ข้อความที่พิมพ์ลงไปในรายการ พร้อมกับสร้างปุ่มลบ
+            li.innerHTML = taskText + ' <button class="delete-btn" onclick="deleteTask(this)">ลบ</button>';
+
+            // นำรายการใหม่ไปแสดงบนหน้าเว็บ
+            ul.appendChild(li);
+
+            // ล้างข้อความในช่องพิมพ์ให้ว่างเปล่าเพื่อรอรับคำสั่งใหม่
+            input.value = "";
+        }
+
+        // ฟังก์ชันสำหรับลบรายการ
+        function deleteTask(element) {
+            // ลบรายการ (<li>) ที่ครอบปุ่มลบนั้นอยู่
+            element.parentElement.remove();
+        }
+    </script>
+
+</body>
+</html>
